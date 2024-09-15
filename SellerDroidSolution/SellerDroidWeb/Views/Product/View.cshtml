@@ -1,0 +1,90 @@
+﻿@model SellerDroidWeb.Models.Seller_Product
+
+@{
+    ViewBag.Title = Model.Name;
+    string currentUserId = Utility.CurrentUser == null ? "N/A" : Utility.CurrentUser.Id;
+    var currentUserRating = Utility.DB.Seller_Product_Rating.SingleOrDefault(r => r.Product_Id == Model.Id && r.User_Id == currentUserId);
+    if (currentUserRating == null)
+    {
+        currentUserRating = new SellerDroidWeb.Models.Seller_Product_Rating();
+    }
+}
+
+<h2>
+    @Model.Name
+    @if (Utility.IsAdmin())
+    {
+        <span id="btnFeatured" onclick="ChangeIsFeatured()" class='btn @(Model.Is_Featured ? "btn-success": "btn-default")'>
+            @Html.CheckBoxFor(p => p.Is_Featured, new { id = "chkIsFeatured", onclick = "ChangeIsFeatured(this.checked)" })
+            <span class="description">@(Model.Is_Featured ? "Featured" : "Not Featured")</span>
+        </span>
+
+        <script type="text/javascript">
+            function ChangeIsFeatured() {
+                if(arguments.length == 0)
+                {
+                    $('#chkIsFeatured').click();
+                    return;
+                }
+                
+                $("#btnFeatured").prop("disabled", true);
+                $("#chkIsFeatured").prop("disabled", true);
+
+                isFeatured = !!arguments[0];
+                var url = '@Url.Action("ChangeIsFeatured", "Admin")';
+                $.post(url, { id: @Model.Id, featured: isFeatured }, function(data) {
+                    toastr["success"]("Product is now " + (isFeatured ? "Featured" : "Not Featured"));
+
+                    $("#btnFeatured").prop("disabled", false);
+                    $("#chkIsFeatured").prop("disabled", false);
+                    
+                    if(isFeatured)
+                    {
+                        $("#btnFeatured").removeClass("btn-default");
+                        $("#btnFeatured").addClass("btn-success");                        
+                        $("#btnFeatured .description").html("Featured");
+                    }
+                    else
+                    {
+                        $("#btnFeatured").removeClass("btn-success");
+                        $("#btnFeatured").addClass("btn-default");                        
+                        $("#btnFeatured .description").html("Not Featured");
+                    }
+                });
+            }
+        </script>
+    }
+</h2>
+
+
+
+<h3>by @Html.ActionLink(Model.AspNetUser.Seller_User_Info.Name, "ViewProfile", "Supplier", new { id = Model.AspNetUser.Id }, new { })</h3>
+
+<div>
+    <b>Average User Rating:</b>
+    <input id="averageRating" type="number" data-show-clear="false" data-readonly="true" class="rating" value="@Model.Average_Rating" data-min="0" data-max="5" data-step="0.5" data-size="xs">
+</div>
+
+@if (Request.IsAuthenticated)
+{
+    <div>
+        <b>Your Rating:</b>
+        <input id="myRating" type="number" class="rating" value="@currentUserRating.Rating" onchange="UpdateMyRating()" data-min="0" data-max="5" data-step="0.5" data-size="xs">
+    </div>
+    <script type="text/javascript">
+        function UpdateMyRating() {
+            var url = '@Url.Action("UpdateMyRating", "Product")';
+            $.post(url, { id: @Model.Id, myRating: $("#myRating").val() }, function(data) {
+                $("#averageRating").rating('update', data);
+                toastr["success"]("Your rating of " + $("#myRating").val() + " was submitted for this product");
+            });
+        }
+    </script>
+}
+
+@if (Model.Main_Image_Id.HasValue)
+{
+    <img src='@Url.Action("Get", "SellerFile", new { id = Model.Main_Image_Id })' style="float:right; max-width: 600px" />
+}
+
+@Html.Raw(Model.Long_Description)

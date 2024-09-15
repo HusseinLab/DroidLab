@@ -1,0 +1,728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SellerDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Seller_File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Filename" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Content" Type="image" />
+          <Property Name="Content_Length" Type="int" Nullable="false" />
+          <Property Name="Content_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Modified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Seller_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Small_Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Long_Description" Type="nvarchar(max)" />
+          <Property Name="Main_Image_Id" Type="int" />
+          <Property Name="Seller_User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Is_Featured" Type="bit" Nullable="false" />
+          <Property Name="Is_Visible" Type="bit" Nullable="false" />
+          <Property Name="Average_Rating" Type="float" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Modifed" Type="datetime" Nullable="false" />
+          <Property Name="Barcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Keywords" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Seller_Product_Rating">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="int" Nullable="false" />
+          <Property Name="User_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Rating" Type="float" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Modified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Seller_User_Info">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Is_Supplier" Type="bit" Nullable="false" />
+          <Property Name="Map_Latitude" Type="float" />
+          <Property Name="Map_Longitude" Type="float" />
+          <Property Name="Picture_Id" Type="int" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="Modified" Type="datetime" Nullable="false" />
+          <Property Name="IsLocked" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Seller_Pr__Main___06CD04F7">
+          <End Role="Seller_File" Type="Self.Seller_File" Multiplicity="0..1" />
+          <End Role="Seller_Product" Type="Self.Seller_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller_File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_Product">
+              <PropertyRef Name="Main_Image_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seller_Pr__Produ__3E1D39E1">
+          <End Role="Seller_Product" Type="Self.Seller_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Seller_Product_Rating" Type="Self.Seller_Product_Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller_Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_Product_Rating">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seller_Pr__Selle__07C12930">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Seller_Product" Type="Self.Seller_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_Product">
+              <PropertyRef Name="Seller_User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seller_Pr__User___19DFD96B">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Seller_Product_Rating" Type="Self.Seller_Product_Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_Product_Rating">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seller_Us__Pictu__73BA3083">
+          <End Role="Seller_File" Type="Self.Seller_File" Multiplicity="0..1" />
+          <End Role="Seller_User_Info" Type="Self.Seller_User_Info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller_File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_User_Info">
+              <PropertyRef Name="Picture_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seller_User___Id__72C60C4A">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Seller_User_Info" Type="Self.Seller_User_Info" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_User_Info">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Update_Product_Average_Rating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Product_Id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="SellerDatabaseModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller_File" EntityType="Self.Seller_File" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller_Product" EntityType="Self.Seller_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller_Product_Rating" EntityType="Self.Seller_Product_Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seller_User_Info" EntityType="Self.Seller_User_Info" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Seller_Pr__Main___06CD04F7" Association="Self.FK__Seller_Pr__Main___06CD04F7">
+            <End Role="Seller_File" EntitySet="Seller_File" />
+            <End Role="Seller_Product" EntitySet="Seller_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seller_Pr__Produ__3E1D39E1" Association="Self.FK__Seller_Pr__Produ__3E1D39E1">
+            <End Role="Seller_Product" EntitySet="Seller_Product" />
+            <End Role="Seller_Product_Rating" EntitySet="Seller_Product_Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seller_Pr__Selle__07C12930" Association="Self.FK__Seller_Pr__Selle__07C12930">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Seller_Product" EntitySet="Seller_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seller_Pr__User___19DFD96B" Association="Self.FK__Seller_Pr__User___19DFD96B">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Seller_Product_Rating" EntitySet="Seller_Product_Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seller_Us__Pictu__73BA3083" Association="Self.FK__Seller_Us__Pictu__73BA3083">
+            <End Role="Seller_File" EntitySet="Seller_File" />
+            <End Role="Seller_User_Info" EntitySet="Seller_User_Info" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seller_User___Id__72C60C4A" Association="Self.FK__Seller_User___Id__72C60C4A">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Seller_User_Info" EntitySet="Seller_User_Info" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SellerDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Seller_Product" Relationship="SellerDatabaseModel.FK__Seller_Pr__Selle__47DBAE45" FromRole="AspNetUser" ToRole="Seller_Product" />
+          <NavigationProperty Name="Seller_User_Info" Relationship="SellerDatabaseModel.FK__Seller_User___Id__4D94879B" FromRole="AspNetUser" ToRole="Seller_User_Info" />
+          <NavigationProperty Name="Seller_Product_Rating" Relationship="SellerDatabaseModel.FK__Seller_Pr__User___19DFD96B" FromRole="AspNetUser" ToRole="Seller_Product_Rating" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SellerDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Seller_File" EntityType="SellerDatabaseModel.Seller_File" />
+          <EntitySet Name="Seller_Product" EntityType="SellerDatabaseModel.Seller_Product" />
+          <EntitySet Name="Seller_User_Info" EntityType="SellerDatabaseModel.Seller_User_Info" />
+          <AssociationSet Name="FK__Seller_Pr__Selle__47DBAE45" Association="SellerDatabaseModel.FK__Seller_Pr__Selle__47DBAE45">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Seller_Product" EntitySet="Seller_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seller_User___Id__4D94879B" Association="SellerDatabaseModel.FK__Seller_User___Id__4D94879B">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Seller_User_Info" EntitySet="Seller_User_Info" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seller_Pr__Main___30F848ED" Association="SellerDatabaseModel.FK__Seller_Pr__Main___30F848ED">
+            <End Role="Seller_File" EntitySet="Seller_File" />
+            <End Role="Seller_Product" EntitySet="Seller_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seller_Us__Pictu__73BA3083" Association="SellerDatabaseModel.FK__Seller_Us__Pictu__73BA3083">
+            <End Role="Seller_File" EntitySet="Seller_File" />
+            <End Role="Seller_User_Info" EntitySet="Seller_User_Info" />
+          </AssociationSet>
+          <EntitySet Name="Seller_Product_Rating" EntityType="SellerDatabaseModel.Seller_Product_Rating" />
+          <AssociationSet Name="FK__Seller_Pr__User___19DFD96B" Association="SellerDatabaseModel.FK__Seller_Pr__User___19DFD96B">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Seller_Product_Rating" EntitySet="Seller_Product_Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Seller_Pr__Produ__18EBB532" Association="SellerDatabaseModel.FK__Seller_Pr__Produ__18EBB532">
+            <End Role="Seller_Product" EntitySet="Seller_Product" />
+            <End Role="Seller_Product_Rating" EntitySet="Seller_Product_Rating" />
+          </AssociationSet>
+          <FunctionImport Name="Update_Product_Average_Rating">
+          <Parameter Name="Product_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Seller_File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Filename" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Content_Length" Type="Int32" Nullable="false" />
+          <Property Name="Content_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Seller_Product" Relationship="SellerDatabaseModel.FK__Seller_Pr__Main___30F848ED" FromRole="Seller_File" ToRole="Seller_Product" />
+          <NavigationProperty Name="Seller_User_Info" Relationship="SellerDatabaseModel.FK__Seller_Us__Pictu__73BA3083" FromRole="Seller_File" ToRole="Seller_User_Info" />
+        </EntityType>
+        <EntityType Name="Seller_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Small_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Long_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Main_Image_Id" Type="Int32" />
+          <Property Name="Seller_User_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Is_Featured" Type="Boolean" Nullable="false" />
+          <Property Name="Is_Visible" Type="Boolean" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modifed" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="SellerDatabaseModel.FK__Seller_Pr__Selle__47DBAE45" FromRole="Seller_Product" ToRole="AspNetUser" />
+          <NavigationProperty Name="Seller_File" Relationship="SellerDatabaseModel.FK__Seller_Pr__Main___30F848ED" FromRole="Seller_Product" ToRole="Seller_File" />
+          <Property Name="Average_Rating" Type="Double" />
+          <NavigationProperty Name="Seller_Product_Rating" Relationship="SellerDatabaseModel.FK__Seller_Pr__Produ__18EBB532" FromRole="Seller_Product" ToRole="Seller_Product_Rating" />
+          <Property Name="Barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Keywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Seller_User_Info">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Is_Supplier" Type="Boolean" Nullable="false" />
+          <Property Name="Map_Latitude" Type="Double" />
+          <Property Name="Map_Longitude" Type="Double" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="SellerDatabaseModel.FK__Seller_User___Id__4D94879B" FromRole="Seller_User_Info" ToRole="AspNetUser" />
+          <Property Name="Picture_Id" Type="Int32" />
+          <NavigationProperty Name="Seller_File" Relationship="SellerDatabaseModel.FK__Seller_Us__Pictu__73BA3083" FromRole="Seller_User_Info" ToRole="Seller_File" />
+          <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Seller_Pr__Selle__47DBAE45">
+          <End Type="SellerDatabaseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SellerDatabaseModel.Seller_Product" Role="Seller_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_Product">
+              <PropertyRef Name="Seller_User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seller_User___Id__4D94879B">
+          <End Type="SellerDatabaseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SellerDatabaseModel.Seller_User_Info" Role="Seller_User_Info" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_User_Info">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seller_Pr__Main___30F848ED">
+          <End Type="SellerDatabaseModel.Seller_File" Role="Seller_File" Multiplicity="0..1" />
+          <End Type="SellerDatabaseModel.Seller_Product" Role="Seller_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller_File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_Product">
+              <PropertyRef Name="Main_Image_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seller_Us__Pictu__73BA3083">
+          <End Type="SellerDatabaseModel.Seller_File" Role="Seller_File" Multiplicity="0..1" />
+          <End Type="SellerDatabaseModel.Seller_User_Info" Role="Seller_User_Info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller_File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_User_Info">
+              <PropertyRef Name="Picture_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Seller_Product_Rating">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Double" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Modified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="SellerDatabaseModel.FK__Seller_Pr__User___19DFD96B" FromRole="Seller_Product_Rating" ToRole="AspNetUser" />
+          <NavigationProperty Name="Seller_Product" Relationship="SellerDatabaseModel.FK__Seller_Pr__Produ__18EBB532" FromRole="Seller_Product_Rating" ToRole="Seller_Product" />
+        </EntityType>
+        <Association Name="FK__Seller_Pr__User___19DFD96B">
+          <End Type="SellerDatabaseModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="SellerDatabaseModel.Seller_Product_Rating" Role="Seller_Product_Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_Product_Rating">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Seller_Pr__Produ__18EBB532">
+          <End Type="SellerDatabaseModel.Seller_Product" Role="Seller_Product" Multiplicity="1" />
+          <End Type="SellerDatabaseModel.Seller_Product_Rating" Role="Seller_Product_Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seller_Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seller_Product_Rating">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SellerDatabaseModelStoreContainer" CdmEntityContainer="SellerDatabaseEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="SellerDatabaseModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="SellerDatabaseModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="SellerDatabaseModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="SellerDatabaseModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="SellerDatabaseModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Seller_File">
+            <EntityTypeMapping TypeName="SellerDatabaseModel.Seller_File">
+              <MappingFragment StoreEntitySet="Seller_File">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Content_Type" ColumnName="Content_Type" />
+                <ScalarProperty Name="Content_Length" ColumnName="Content_Length" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Filename" ColumnName="Filename" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seller_Product">
+            <EntityTypeMapping TypeName="SellerDatabaseModel.Seller_Product">
+              <MappingFragment StoreEntitySet="Seller_Product">
+                <ScalarProperty Name="Keywords" ColumnName="Keywords" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="Average_Rating" ColumnName="Average_Rating" />
+                <ScalarProperty Name="Modifed" ColumnName="Modifed" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Is_Visible" ColumnName="Is_Visible" />
+                <ScalarProperty Name="Is_Featured" ColumnName="Is_Featured" />
+                <ScalarProperty Name="Seller_User_Id" ColumnName="Seller_User_Id" />
+                <ScalarProperty Name="Main_Image_Id" ColumnName="Main_Image_Id" />
+                <ScalarProperty Name="Long_Description" ColumnName="Long_Description" />
+                <ScalarProperty Name="Small_Description" ColumnName="Small_Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seller_User_Info">
+            <EntityTypeMapping TypeName="SellerDatabaseModel.Seller_User_Info">
+              <MappingFragment StoreEntitySet="Seller_User_Info">
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+                <ScalarProperty Name="Picture_Id" ColumnName="Picture_Id" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Map_Longitude" ColumnName="Map_Longitude" />
+                <ScalarProperty Name="Map_Latitude" ColumnName="Map_Latitude" />
+                <ScalarProperty Name="Is_Supplier" ColumnName="Is_Supplier" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seller_Product_Rating">
+            <EntityTypeMapping TypeName="SellerDatabaseModel.Seller_Product_Rating">
+              <MappingFragment StoreEntitySet="Seller_Product_Rating">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Update_Product_Average_Rating" FunctionName="SellerDatabaseModel.Store.Update_Product_Average_Rating" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

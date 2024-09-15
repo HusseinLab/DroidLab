@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Seller Web</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/star-rating.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/star-rating.min.js"></script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Scripts/ckeditor/adapters/jquery.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.options = {
+            "positionClass": "toast-bottom-right",
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "swing",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHjy0lJr1ypQ9amlcW0H1EquJP7YdIZoU"></script>
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div class="navbar navbar navbar-fixed-top" style="background-color:white">
+        <div class="container">
+            <div class="navbar-header">
+
+                <a href="/"><img src="~/Content/images/sell-web-logo-small.png" class="navbar-btn" border="0" style="float: left; height: 48px; margin:2px;" /></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Seller Web", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (Utility.IsAdmin())
+                    {
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                    }
+                    @if (Utility.IsSupplier())
+                    {
+                        <li>@Html.ActionLink("My Products", "Index", "Supplier")</li>
+                    }
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+
+        <div class="container">
+            <div style="display: inline-block; float:right; margin: 10px;">
+                <form action='/Search/' method="post">
+                    <table>
+                        <tr>
+                            <td>
+                                <span class="glyphicon glyphicon-search"></span>
+                            </td>
+                            <td>
+                                <input type="text" placeholder="Search..." name="q" value='@Request["q"]' class="form-control" />
+                            </td>
+                            <td>
+                                <input type="submit" value="Go" class="btn btn-default" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+        @if (Session["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                <a class="close" data-dismiss="alert">×</a>
+                <strong>Error:</strong>
+                @Session["ErrorMessage"]
+            </div>
+        }
+
+        @if (Session["WarningMessage"] != null)
+        {
+            <div class="alert alert-warning">
+                <a class="close" data-dismiss="alert">×</a>
+                <strong>Warning:</strong>
+                @Session["WarningMessage"]
+            </div>
+        }
+
+        @if (Session["InfoMessage"] != null)
+        {
+            <div class="alert alert-warning">
+                <a class="close" data-dismiss="alert">×</a>
+                <strong>Info:</strong>
+                @Session["InfoMessage"]
+            </div>
+        }
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Seller Web</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>
+@{
+    Session["ErrorMessage"] = null;
+    Session["WarningMessage"] = null;
+    Session["InfoMessage"] = null;
+}

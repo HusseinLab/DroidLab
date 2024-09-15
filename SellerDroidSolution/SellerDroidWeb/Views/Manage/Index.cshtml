@@ -1,0 +1,83 @@
+﻿@model SellerDroidWeb.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage your Account Settings";
+}
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Create", "SetPassword")
+            }
+            ]
+        </dd>
+        @if (Request.IsAuthenticated && Utility.IsSupplier())
+        {
+            <dt>
+                Description<br />
+                <small><i>Shown to clients</i></small>
+            </dt>
+            <dd>
+                <textarea id="myDescription">@Html.Raw(Utility.CurrentUser.Seller_User_Info.Description)</textarea>
+                <input type="button" class="btn btn-default" value="Update Description" onclick="UpdateMyDescription()" style="float: right" />
+            </dd>
+            <dt>
+                Your Location:<br />
+                <small><i>Drag the marker</i></small>
+            </dt>
+            <dd>
+                <div id="LocationMapDiv" style="height:480px; width: 100%"></div>
+                <script type="text/javascript">
+                    function UpdateMyDescription() {
+                        var url = '@Url.Action("UpdateMyDescription", "Supplier")';
+                        $.post(url, { description: $("#myDescription").val() }, function(d,s){
+                            toastr["success"]("Code: " + s + " - Description updated");
+                        });
+                    }
+
+                    $(document).ready(function () {
+
+                        $("#myDescription").ckeditor();
+
+                        var myLatLng = { lat: @(Utility.CurrentUser.Seller_User_Info.Map_Latitude ?? 33.81188674692338), lng: @(Utility.CurrentUser.Seller_User_Info.Map_Longitude ?? 35.88812828063965) };
+
+                        // Create a map object and specify the DOM element for display.
+                        var map = new google.maps.Map(document.getElementById('LocationMapDiv'), {
+                            center: myLatLng,
+                            scrollwheel: false,
+                            zoom: 13
+                        });
+
+                        // Create a marker and set its position.
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: myLatLng,
+                            title: '@Utility.CurrentUser.Seller_User_Info.Name',
+                            draggable: true
+                        });
+
+                        google.maps.event.addListener(marker, "drag", function (event) {
+                            var latLng = event.latLng;
+                            var lat = latLng.lat();
+                            var lng = latLng.lng();
+                            console.info("Marker Dragged:", lat, lng);
+
+                            var url = '@Url.Action("UpdateMyLocation", "Supplier")';
+                            $.post(url, { lat: lat, lng: lng });
+                        });
+                    });
+                </script>
+            </dd>
+        }
+    </dl>
+</div>

@@ -1,0 +1,46 @@
+Administrator
+===============
+admin@sellerweb.com
+Admin!23
+
+---------------------------------------
+
+
+Supplier
+=========
+abed@tahhan.com
+Abed!23
+
+supermarket abu khalil
+===========
+abukhalil@market.com
+Abu!23
+
+tony abu hamad
+===========
+tonyabuhamad@gmail.com
+Tony!23
+
+hussein hajj hassan
+===========
+Husseinhajjhassan91@gmail.com
+Hussein!23
+
+
+---------------------------------------
+
+User
+=========
+client@somewhere.com
+Client!23
+
+
+elia 
+==========
+Elia.Choukayra@gmail.com
+Elia!23
+
+ali tleiss
+===========
+ali.tleiss@hotmail.com
+Ali!23

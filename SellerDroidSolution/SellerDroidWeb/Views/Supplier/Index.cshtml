@@ -1,0 +1,112 @@
+﻿@model SellerDroidWeb.Models.Seller_Product
+
+@{
+    ViewBag.Title = "Supplier Page";
+    var products = Utility.CurrentUser.Seller_Product.ToList();
+}
+
+<div class="container">
+    <h2>Products</h2>
+    @if (products.Count > 0)
+    {
+        <p>You have defined the following products:</p>
+    }
+    else
+    {
+        <p>You have no products defined.</p>
+    }
+    <table class="table table-hover">
+        @if (products.Count > 0)
+        {
+            <thead>
+                <tr>
+                    <th>Product Image</th>
+                    <th>Product Name</th>
+                    <th>Avgerage User Rating</th>
+                    <th>Visible</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Utility.CurrentUser.Seller_Product)
+                {
+                    <tr>
+                        <td>
+                            @if (product.Main_Image_Id.HasValue)
+                            {
+                                <img src='@Url.Action("Get", "SellerFile", new { id = product.Main_Image_Id })' style="max-height: 64px; max-width: 64px;" />
+                            }
+                        </td>
+                        <td><a href="/Product/View/@product.Id">@product.Name</a></td>
+                        <td>
+                            <input type="number" data-show-clear="false" data-readonly="true" class="rating" value="@product.Average_Rating" data-min="0" data-max="5" data-step="0.5" data-size="xs">
+                        </td>
+                        <td>
+                            <input type="checkbox" onclick="ChangeProductVisiblity(@product.Id, this.checked)" value="true" @(product.Is_Visible ? "checked" : "" )/>
+                        </td>
+                        <td><a href="javascript:;" onclick="if(confirm('Are you sure you want to delete this product?')) location.href = '/Supplier/DeleteProduct/@product.Id'">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        }
+    </table>
+
+    <h2>Add a Product</h2>
+    @using (Html.BeginForm("AddProduct", "Supplier", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary()
+
+        <table border="1" bordercolor="#F0F0F0" width="640">
+            <tr>
+                <th class="control-label">Name</th>
+                <td><input type="text" required maxlength="255" name="Name" class="form-control" style="width:100%" placeholder="Product Name" /></td>
+            </tr>
+            <tr>
+                <th class="control-label">Visible</th>
+                <td>@Html.CheckBoxFor(p => p.Is_Visible)</td>
+            </tr>
+            <tr>
+                <th class="control-label">Picture</th>
+                <td><input type="file" name="product_Image" required /></td>
+            </tr>
+            <tr>
+                <th class="control-label">Barcode</th>
+                <td><input type="text" id="Barcode" name="Barcode" class="form-control" style="width:100%" placeholder="Product Barcode"/></td>
+            </tr>
+            <tr>
+                <th class="control-label">Keywords</th>
+                <td><input type="text" id="Keywords" name="Keywords" class="form-control" style="width:100%" placeholder="Keywords for search" /></td>
+            </tr>
+            <tr>
+                <th class="control-label">Short Description</th>
+                <td><textarea rows="3" id="Small_Description" required name="Small_Description" class="form-control" style="width:100%" placeholder="Short Product Description"></textarea></td>
+            </tr>
+            <tr>
+                <th class="control-label">Full/Long Description</th>
+                <td><textarea rows="5" id="Long_Description" required name="Long_Description" class="form-control" style="width:100%" placeholder="Full Product Description"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:right"><input class="btn btn-default" type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    }
+</div>
+
+<script type="text/javascript">
+    function ChangeProductVisiblity(productId, isVisible) {
+        isVisible = !!isVisible;
+        var url = '@Url.Action("ChangeProductVisiblity", "Supplier")';
+        $.post(url, { id: productId, visible: isVisible }, function(data) {
+            if (data.indexOf("Error: ") == 0)
+            {
+                toastr["error"](data);
+            }
+            else
+                toastr["success"](data);
+        });
+    }
+
+    $(document).ready(function () {
+        $("#Long_Description").ckeditor();
+    });
+</script>

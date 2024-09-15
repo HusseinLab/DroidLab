@@ -1,0 +1,21 @@
+Registration
+=================
++ Add Supplier Role
+
+Supplier
+=================
++ Make Product Visible/Hidden
+
+Admin
+=================
+- Make Product Featured
++ List all Users
+
+Product 
+=================
++ Add Rating for Other Users
+
+Main Page
+=================
++ Search 
+- Carousel (Featured Products)

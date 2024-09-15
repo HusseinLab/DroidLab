@@ -1,0 +1,69 @@
+﻿@model SellerDroidWeb.Models.AspNetUser
+
+@{
+    ViewBag.Title = Model.Seller_User_Info.Name;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Product Image</th>
+            <th>Product Name</th>
+            <th>Avgerage User Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Seller_Product.OrderByDescending(p => p.Is_Featured).Where(p => p.Is_Visible))
+        {
+            <tr>
+                <td>
+                    @if (product.Main_Image_Id.HasValue)
+                    {
+                        <img src='@Url.Action("Get", "SellerFile", new { id = product.Main_Image_Id })' style="max-height: 64px; max-width: 64px;" />
+                    }
+                </td>
+                <td>@Html.ActionLink(product.Name, "View", "Product", new { id = product.Id }, new { })</td>
+                <td>
+                    <input type="number" data-show-clear="false" data-readonly="true" class="rating" value="@product.Average_Rating" data-min="0" data-max="5" data-step="0.5" data-size="xs">
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+
+<div style="display:table-row; width:100%">
+    <div style="display:table-cell; width:50%; vertical-align:top">
+        @Html.Raw(Model.Seller_User_Info.Description)
+    </div>
+    @if (Model.Seller_User_Info.Map_Latitude.HasValue && Model.Seller_User_Info.Map_Longitude.HasValue)
+    {
+        <div style="display:table-cell; vertical-align:top">
+            <div id="LocationMapDiv" style="height:480px; width: 480px"></div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                var myLatLng = { lat: @Model.Seller_User_Info.Map_Latitude, lng: @Model.Seller_User_Info.Map_Longitude };
+
+                // Create a map object and specify the DOM element for display.
+                var map = new google.maps.Map(document.getElementById('LocationMapDiv'), {
+                    center: myLatLng,
+                    scrollwheel: false,
+                    zoom: 13
+                });
+
+                // Create a marker and set its position.
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: myLatLng,
+                    title: '@Model.Seller_User_Info.Name'
+                });
+            });
+        </script>
+    }
+
+</div>

@@ -1,0 +1,21 @@
+Technologies
+============
+
+Web 
+--------
+- ASP.NET (MVC 5)
+- jQuery (Helper Javascript DOM Library)
+- BootStrap (Twitter Web Framework)
+- toastr (Toast Notification Messages)
+
+Database and Access
+--------------------
+- SQL Server (Attached File: SellerDatabase.mdf)
+- Access is via MS Enterprise Entities (v6) => Models.SellerDataModel.edmx (Shows Tables mapped as Classes in the App)
+
+Security
+------------
+- Microsoft Membership (Forms Authentication)
+- SQL Server Provider (User, Roles in the database)
+- Passwords are hashed
+- User Identity on server only, authentication using cookie token

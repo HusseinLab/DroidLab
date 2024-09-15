@@ -1,0 +1,26 @@
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\SellerDroidTests.dll
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\SellerDroidTests.pdb
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\RestSharp.dll
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\RestSharp.xml
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\obj\Debug\SellerDroidTests.csprojResolveAssemblyReference.cache
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\obj\Debug\SellerDroidTests.dll
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\obj\Debug\SellerDroidTests.pdb
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\CloudSightApi.dll
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\Newtonsoft.Json.dll
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\CloudSightApi.pdb
+E:\Projects\Android\SellerDroidSolution\SellerDroidTests\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\SellerDroidTests.dll
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\SellerDroidTests.pdb
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\CloudSightApi.dll
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\RestSharp.dll
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\CloudSightApi.pdb
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\RestSharp.xml
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\obj\Debug\SellerDroidTests.csprojResolveAssemblyReference.cache
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\obj\Debug\SellerDroidTests.dll
+C:\Users\User\Downloads\Compressed\New folder\SellerDroidSolution\SellerDroidTests\obj\Debug\SellerDroidTests.pdb

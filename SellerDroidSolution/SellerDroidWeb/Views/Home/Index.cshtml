@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+    var featuredProducts = Utility.DB.Seller_Product.Where(p => p.Is_Visible && p.Is_Featured).OrderByDescending(p => p.Average_Rating).ToList();
+
+}
+
+<div class="jumbotron">
+    <h1>SellerDroid Web</h1>
+    <p class="lead">Seller Web is revolutionary site and app to enable anyone searching for products or selling items to do it in a fast and easy way.</p>
+    <p>Our site is coupled with a Mobile App to enable super fast and revolutionary search: a product you like, by its Picture, BarCode, Voice and Name</p>
+    <p><a href="https://play.google.com/store" target="_blank" class="btn btn-primary btn-lg">Get the Mobile App Right Now&raquo;</a></p>
+</div>
+
+<!-- Featured Products -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        @for (int index = 0; index < featuredProducts.Count; index++)
+        {
+            <li data-target="#myCarousel" data-slide-to="@index" class='@(index == 0 ? "active" : "")'></li>
+        }
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        @for (int index = 0; index < featuredProducts.Count; index++)
+        {
+            var product = featuredProducts[index];
+            <a class='item @(index == 0 ? "active" : "")' style="text-align:center" href="/Product/View/@product.Id">
+                <div>
+                    <img style="height: 320px;" src="/SellerFile/Get/@(product.Main_Image_Id)">
+                    <div class="carousel-caption">
+                        <h3 style="background-color:forestgreen;">@product.Name</h3>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+@if (Utility.CurrentUser == null)
+{
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+               If you don't have an account with us, don't wait and register now.<br />
+                It's fast, and very easy, depending on what you want to do:<br />
+                <ul>
+                    <li>I have a business / store or I have something to sell: REGISTER as a supplier</li>
+                    <li>I am just a regular person, looking for stuff to buy</li>
+                </ul>
+                <a href="/Account/Register" class="btn btn-default btn-lg">Register&raquo;</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>I have already an account</h2>
+            <p>You have already registered and have an account.</p>
+            <p><a href="/Account/Login" class="btn btn-default btn-lg">Login&raquo;</a></p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <p>
+            You are logged in as @Utility.CurrentUser.Seller_User_Info.Name
+        </p>
+        @if (Utility.CurrentUser.AspNetRoles.Count > 0)
+        {
+            <p>You have the following roles:</p>
+            <ul>
+                @foreach (var role in Utility.CurrentUser.AspNetRoles)
+                {
+                    <li>@role.Name</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>You don't have any special roles.</p>
+            <p>You have something to sell, do you want to become a supplier? <a href="~/Account/Register">Register</a> and make sure you tick the SUPPLIER checkbox!</p>
+        }
+    </div>
+}

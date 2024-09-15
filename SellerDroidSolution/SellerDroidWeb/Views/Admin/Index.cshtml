@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Administrator";
+}
+
+<h2>Administrator</h2>
+
+<b>Site Users</b>
+<table class="table table-bordered table-condensed table-condensed">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Utility.DB.AspNetUsers.OrderByDescending(u => u.LockoutEnabled))
+        {
+            <tr>
+                <td>@user.Seller_User_Info.Name</td>
+                <td>@user.Email</td>
+                <td>
+                    <ul>
+                        @foreach (var role in user.AspNetRoles)
+                        {
+                            <li>
+                                @if ("Supplier".Equals(role.Name))
+                                {
+                                    <a href="/Supplier/ViewProfile/@user.Id">Supplier</a>
+                                    <span>(@user.Seller_Product.Count products)</span>
+                                }
+                                else
+                                {
+                                    <span>@role.Name</span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <input identifier="@user.Id" type="checkbox" @(user.Id == Utility.CurrentUser.Id ? "readonly" : "") onclick="SetLockingStatus('@user.Id', this.checked)" value="true" @(user.Seller_User_Info.IsLocked ? "" : "checked" ) />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function SetLockingStatus(userId, isActive) {
+
+        isActive = !!isActive;
+
+        if (!isActive) {
+            if (!confirm("This will lock the user's account and prevent him from logging into the system. Are you sure?")) {
+                $("input[identifier='" + userId + "']").prop("checked", !isActive);
+                return;
+            }
+        } else {
+            if (!confirm("This user has been locked for a reason. Are you sure you want to give him access again?")) {
+                $("input[identifier='" + userId + "']").prop("checked", !isActive);
+                return;
+            }
+        }
+
+        var url = '@Url.Action("SetLockingStatus", "Admin")';
+        $.post(url, { id: userId, locked: !isActive }, function (data) {
+            toastr["success"]("User is now " + (isActive ? "Active" : "Locked"));
+        });
+    }
+</script>
